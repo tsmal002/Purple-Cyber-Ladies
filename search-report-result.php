@@ -43,7 +43,6 @@ $searchdata=$_POST['serachdata'];
 <?php $query=mysqli_query($stmt = $conn-> prepare("INSERT INTO (tbltestrecord.OrderNumber,tblpatients.FullName,tblpatients.MobileNumber,tbltestrecord.TestType,tbltestrecord.TestTimeSlot,tbltestrecord.RegistrationDate,tbltestrecord.id as testid from tbltestrecord
 join tblpatients on tblpatients.MobileNumber=tbltestrecord.PatientMobileNumber)");
 $stmt->bind_param("sss", $tblpatients.FullName, $tblpatients.MobileNumber, $tbltestrecord.OrderNumber);
-    ");
 $cnt=1;
 while($row=mysqli_fetch_array($query)){
 ?>
