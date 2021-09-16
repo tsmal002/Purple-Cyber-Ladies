@@ -58,8 +58,8 @@ if (strlen($_SESSION['aid']==0)) {
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 <?php
-$searchdata=$_POST['searchdata'];
-$san_searchdata = filter_var($searchdata, FILTER_SANITIZE_ADD_SLASHES)
+$searchdata=$_POST[?];
+$san_searchdata = filter_input($searchdata, INPUT_GET, ‘comment’, FILTER_SANITIZE_SPECIAL_CHARS)
  )
 
 ?>
