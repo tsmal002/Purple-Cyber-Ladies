@@ -58,13 +58,11 @@ if (strlen($_SESSION['aid']==0)) {
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 <?php
-$searchdata=$_POST[?];
-$san_searchdata = filter_input($searchdata, INPUT_GET, ‘comment’, FILTER_SANITIZE_SPECIAL_CHARS)
- )
+$searchdata = filter_var($_POST["search"],FILTER_SANITIZE_SPECIAL_CHARS);
 
 ?>
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Search Result Againt '<?php echo $san_searchdata;?>' </h1>
+                    <h1 class="h3 mb-2 text-gray-800">Search Result Againt '<?php echo $searchdata;?>' </h1>
     
 
                     <!-- DataTales Example -->
@@ -103,7 +101,8 @@ $san_searchdata = filter_input($searchdata, INPUT_GET, ‘comment’, FILTER_SANITIZ
                                     <tbody>
 <?php $query=mysqli_query($con,"select tbltestrecord.OrderNumber,tblpatients.FullName,tblpatients.MobileNumber,tbltestrecord.TestType,tbltestrecord.TestTimeSlot,tbltestrecord.RegistrationDate,tbltestrecord.id as testid from tbltestrecord
 join tblpatients on tblpatients.MobileNumber=tbltestrecord.PatientMobileNumber
-where (tblpatients.FullName like '%$san_searchdata%' || tblpatients.MobileNumber like '%$san_searchdata%' || tbltestrecord.OrderNumber like '%$san_searchdata%')
+where (tblpatients.FullName like '%$searchdata%' || tblpatients.MobileNumber like '%$searchdata%' || tbltestrecord.OrderNumber like '%$searchdata%')
+
 $cnt=1;
 while($row=mysqli_fetch_array($query)){
 ?>
