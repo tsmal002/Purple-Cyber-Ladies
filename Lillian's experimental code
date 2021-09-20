@@ -1,5 +1,5 @@
 <?php
- $searchdata=$_POST['serachdata'];
+ $searchdata=$_POST['user_input'];
 
  ?>
                      <!-- Page Heading -->
@@ -40,9 +40,9 @@
                                          </tr>
                                      </tfoot>
                                      <tbody>
- <?php $query=mysqli_query($con,"select tbltestrecord.OrderNumber,tblpatients.FullName,tblpatients.MobileNumber,tbltestrecord.TestType,tbltestrecord.TestTimeSlot,tbltestrecord.RegistrationDate,tbltestrecord.id as testid from tbltestrecord
+ <?php $query=$dbConnection->prepare('SELECT * FROM tbltestrecord.OrderNumber,tblpatients.FullName,tblpatients.MobileNumber,tbltestrecord.TestType,tbltestrecord.TestTimeSlot,tbltestrecord.RegistrationDate,tbltestrecord.id as testid from tbltestrecord
  join tblpatients on tblpatients.MobileNumber=tbltestrecord.PatientMobileNumber
- where (tblpatients.FullName like '%$searchdata%' || tblpatients.MobileNumber like '%$searchdata%' || tbltestrecord.OrderNumber like '%$searchdata%')
+ WHERE (tblpatients.FullName is '%$searchdata%' || tblpatients.MobileNumber is '%$searchdata%' || tbltestrecord.OrderNumber is '%$searchdata%')
      ");
  $cnt=1;
  while($row=mysqli_fetch_array($query)){
