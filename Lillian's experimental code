@@ -1,9 +1,11 @@
 <?php
- $searchdata=$_POST['user_input'];
+$searchdata=$_POST['user_input'];
+safe_variable = mysql_real_escape_string($searchdata);
 
+mysql_query('INSERT INTO table (column) VALUES ('" . safe_variable . "')');
  ?>
                      <!-- Page Heading -->
-                     <h1 class="h3 mb-2 text-gray-800">Search Result Againt '<?php echo $searchdata;?>' </h1>
+                     <h1 class="h3 mb-2 text-gray-800">Search Result Againt '<?php echo $safe_variable;?>' </h1>
 
 
                      <!-- DataTales Example -->
@@ -42,8 +44,7 @@
                                      <tbody>
  <?php $query=$dbConnection->prepare('SELECT * FROM tbltestrecord.OrderNumber,tblpatients.FullName,tblpatients.MobileNumber,tbltestrecord.TestType,tbltestrecord.TestTimeSlot,tbltestrecord.RegistrationDate,tbltestrecord.id as testid from tbltestrecord
  join tblpatients on tblpatients.MobileNumber=tbltestrecord.PatientMobileNumber
- WHERE (tblpatients.FullName is '%$searchdata%' || tblpatients.MobileNumber is '%$searchdata%' || tbltestrecord.OrderNumber is '%$searchdata%')
-     ");
+ WHERE (tblpatients.FullName is '%$safe_variable%' || tblpatients.MobileNumber is '%$safe_variable%' || tbltestrecord.OrderNumber is '%$safe_variable%')");
  $cnt=1;
  while($row=mysqli_fetch_array($query)){
  ?>
